@@ -1,0 +1,115 @@
+<div *ngIf="_countryServ.countryDetail" class="detail" id="detailfull">
+  <table id="detailtable">
+    <tr>
+      <th>
+        <p>Flag</p>
+
+        <img
+          src="{{ _countryServ.countryDetail.flags.png }}"
+          (load)="_countryServ.thumbLoaded($event)"
+        />
+      </th>
+      <th>
+        <p>Coat of arms</p>
+        <div *ngIf="_countryServ.countryDetail.coatOfArms.png; else noData">
+          <img
+            src="{{ _countryServ.countryDetail.coatOfArms.png }}"
+            (load)="_countryServ.thumbLoaded($event)"
+          />
+        </div>
+      </th>
+    </tr>
+    <tr>
+      <th>
+        <p>Common name</p>
+        <b>{{ _countryServ.countryDetail.name.common }}</b>
+      </th>
+      <th>
+        <p>Official name</p>
+        <b>{{ _countryServ.countryDetail.name.official }}</b>
+      </th>
+      <th>
+        <p>Capital</p>
+        <div *ngIf="_countryServ.countryDetail.capital; else noData">
+          <b> {{ _countryServ.countryDetail.capital }}</b>
+        </div>
+      </th>
+      <th>
+        <p>Population</p>
+        <b>{{ _countryServ.countryDetail.population | number: '1.0-0' }}</b>
+      </th>
+    </tr>
+    <tr>
+      <th>
+        <p>Continent</p>
+        <a
+          class="borders"
+          type="button"
+          (click)="regionClick($event, _countryServ.countryDetail.continents)"
+          href="#detailtable"
+        >
+          {{ _countryServ.countryDetail.continents }}
+        </a>
+      </th>
+      <th>
+        <p>Sub Region</p>
+        <div *ngIf="_countryServ.countryDetail.subregion; else noData">
+          <a
+            class="borders"
+            type="button"
+            (click)="
+              subRegionClick($event, _countryServ.countryDetail.subregion)
+            "
+            href="#detailtable"
+          >
+            {{ _countryServ.countryDetail.subregion }}
+          </a>
+        </div>
+      </th>
+
+      <th>
+        <p>Borders</p>
+        <div
+          *ngIf="_countryServ.bordersNames.length > 0; else noData"
+          class="borders"
+        >
+          <ul
+            type="button"
+            (click)="borderClick($event, _countryServ.bordersCode[i])"
+            *ngFor="let item of _countryServ.bordersNames; index as i"
+          >
+            <img src="{{ _countryServ.bordersFlags[i] }}" />
+            <a href="#detailtable"> {{ _countryServ.bordersNames[i] }}</a>
+          </ul>
+        </div>
+      </th>
+      <th>
+        <p>Language</p>
+        <div
+          *ngIf="_countryServ.countryDetail.languages; else noData"
+          class="borders"
+        >
+          <ul
+            type="button"
+            (click)="languageClick($event, item.value)"
+            *ngFor="
+              let item of _countryServ.countryDetail.languages | keyvalue;
+              index as i
+            "
+          >
+            <a href="#detailtable" id="lang"> {{ item.value }}</a>
+          </ul>
+        </div>
+      </th>
+      <th>
+        <a
+          class="borders"
+          href="{{ _countryServ.countryDetail.maps.googleMaps }}"
+          target="_blank"
+          >Location</a
+        >
+      </th>
+    </tr>
+  </table>
+</div>
+<ng-template #noData>-</ng-template>

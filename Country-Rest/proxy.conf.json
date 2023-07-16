@@ -1,0 +1,9 @@
+{
+    "/galeriaweb":{
+        "target": "http://www.elendemo.com.ar",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    }
+    
+} 
